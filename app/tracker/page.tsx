@@ -1207,8 +1207,9 @@ function TrackerTable({
     });
 
   return (
-    <div className="-mx-4 w-full max-w-full min-w-0 overflow-x-auto overscroll-x-contain px-4">
-      <div className="w-max min-w-[900px] border border-zinc-300">
+    <div className="w-full max-w-full min-w-0 rounded-2xl border border-zinc-300">
+      <div className="-mx-4 w-full max-w-full min-w-0 overflow-x-auto overflow-y-visible overscroll-x-contain px-4">
+        <div className="w-max min-w-[900px]">
         <div
           className={`${columns} border-b border-zinc-300 bg-zinc-50 text-xs font-semibold uppercase tracking-[0.3em] text-zinc-600`}
         >
@@ -1338,6 +1339,7 @@ function TrackerTable({
             </div>
           </div>
         ))}
+        </div>
       </div>
     </div>
   );
