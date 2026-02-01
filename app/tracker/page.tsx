@@ -672,7 +672,7 @@ export default function CombatTrackerPage() {
               onProceed={handleProceedToTable}
             />
           ) : (
-            <div className="grid h-full min-w-0 grid-cols-[1fr_56px] gap-4">
+            <div className="grid h-full min-w-0 grid-cols-1 gap-4 md:grid-cols-[1fr_56px]">
               <div className="flex h-full min-w-0 flex-col gap-4">
               <AttackPanel
                 attackerIndex={attackerIndex}
@@ -730,7 +730,7 @@ export default function CombatTrackerPage() {
                 disabled={!currentFightId || isLoading || isHistory}
               />
               </div>
-              <div className="flex items-center justify-center border border-zinc-200 bg-zinc-100 text-xs font-semibold uppercase tracking-[0.5em] text-zinc-600 print:bg-white">
+              <div className="hidden items-center justify-center border border-zinc-200 bg-zinc-100 text-xs font-semibold uppercase tracking-[0.5em] text-zinc-600 print:flex print:bg-white md:flex">
                 <span
                   style={{
                     writingMode: "vertical-rl",
