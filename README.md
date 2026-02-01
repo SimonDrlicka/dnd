@@ -4,9 +4,7 @@ A collection of Dungeons & Dragons utilities and tools.
 
 ## Features
 
-- Dice rolling utilities
-- Character management helpers
-- Campaign tools
+- Dice rolling utilities with standard D&D notation support (e.g., `1d20`, `2d6+3`)
 
 ## Installation
 
