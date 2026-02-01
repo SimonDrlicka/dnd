@@ -663,7 +663,7 @@ export default function CombatTrackerPage() {
           </div>
         </section>
 
-        <div className="tracker-sheet mx-auto h-[793px] w-full max-w-[1122px] break-inside-avoid rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm print:mx-0 print:h-[210mm] print:w-[297mm] print:rounded-none print:border-0 print:p-0 print:shadow-none">
+        <div className="tracker-sheet mx-auto w-full max-w-[1122px] break-inside-avoid rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm print:mx-0 print:h-[210mm] print:w-[297mm] print:rounded-none print:border-0 print:p-0 print:shadow-none">
           {mode === "setup" ? (
             <SetupPanel
               rows={rows}
@@ -672,8 +672,8 @@ export default function CombatTrackerPage() {
               onProceed={handleProceedToTable}
             />
           ) : (
-            <div className="grid h-full min-w-0 grid-cols-1 gap-4 md:grid-cols-[1fr_56px]">
-              <div className="flex h-full min-w-0 flex-col gap-4">
+            <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-[1fr_56px]">
+              <div className="flex min-w-0 flex-col gap-4">
               <AttackPanel
                 attackerIndex={attackerIndex}
                 targetIndex={targetIndex}
