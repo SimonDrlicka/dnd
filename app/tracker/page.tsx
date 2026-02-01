@@ -552,8 +552,8 @@ export default function CombatTrackerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-100 text-zinc-900 print:bg-white">
-      <div className="mx-auto w-full max-w-[1240px] px-6 py-8 print:px-0 print:py-0">
+    <div className="min-h-screen min-w-0 overflow-x-hidden bg-zinc-100 text-zinc-900 print:bg-white">
+      <div className="mx-auto w-full max-w-[1240px] min-w-0 px-6 py-8 print:px-0 print:py-0">
         <header className="print-hide mb-6 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
@@ -672,8 +672,8 @@ export default function CombatTrackerPage() {
               onProceed={handleProceedToTable}
             />
           ) : (
-            <div className="grid h-full grid-cols-[1fr_56px] gap-4">
-            <div className="flex h-full flex-col gap-4">
+            <div className="grid h-full min-w-0 grid-cols-[1fr_56px] gap-4">
+              <div className="flex h-full min-w-0 flex-col gap-4">
               <AttackPanel
                 attackerIndex={attackerIndex}
                 targetIndex={targetIndex}
@@ -1167,7 +1167,7 @@ function TrackerTable({
   disabled,
 }: TrackerTableProps) {
   const columns =
-    "grid grid-cols-[48px_minmax(240px,1.2fr)_80px_110px_minmax(220px,1fr)_110px]";
+    "grid grid-cols-[48px_minmax(240px,1.2fr)_72px_80px_minmax(220px,1fr)_120px]";
 
   const [editing, setEditing] = useState<{
     rowIndex: number;
@@ -1207,27 +1207,29 @@ function TrackerTable({
     });
 
   return (
-    <div className="overflow-x-auto">
-      <div className="min-w-[900px] border border-zinc-300">
+    <div className="-mx-4 w-full max-w-full min-w-0 overflow-x-auto overscroll-x-contain px-4">
+      <div className="w-max min-w-[900px] border border-zinc-300">
         <div
           className={`${columns} border-b border-zinc-300 bg-zinc-50 text-xs font-semibold uppercase tracking-[0.3em] text-zinc-600`}
         >
           <div className="sticky left-0 z-10 border-r border-zinc-300 bg-zinc-50 px-2 py-2 text-center whitespace-nowrap">
             #
           </div>
-          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap">
+          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap text-xs sm:text-sm">
             Combatant
           </div>
-          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap">
+          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap text-xs sm:text-sm">
             Init
           </div>
-          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap">
+          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap text-xs sm:text-sm">
             HP
           </div>
-          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap">
+          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap text-xs sm:text-sm">
             Cond.
           </div>
-          <div className="px-2 py-2 text-center whitespace-nowrap">Actions</div>
+          <div className="px-2 py-2 text-center whitespace-nowrap text-xs sm:text-sm">
+            Actions
+          </div>
         </div>
         {sortedRows.map(({ row, index }, displayIndex) => (
           <div
@@ -1242,7 +1244,7 @@ function TrackerTable({
                 : ""
             }`}
           >
-            <div className="sticky left-0 z-10 border-r border-zinc-300 bg-white px-2 py-2 text-center text-xs text-zinc-500">
+            <div className="sticky left-0 z-10 border-r border-zinc-300 bg-white px-2 py-2 text-center text-xs text-zinc-500 whitespace-nowrap">
               {displayIndex + 1}
             </div>
             <Cell
@@ -1312,7 +1314,7 @@ function TrackerTable({
               onCommit={handleCommit}
               onCancel={handleCancel}
             />
-            <div className="px-2 py-2 text-center">
+            <div className="px-2 py-2 text-center whitespace-nowrap">
               {editing?.rowIndex === index ? (
                 <div className="flex items-center justify-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
                   <button
