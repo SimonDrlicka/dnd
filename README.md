@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐉⚔️ D&D Combat Tracker + Inventory 📜✨
 
-## Getting Started
+Welcome to the **table-ready** Dungeons & Dragons toolkit built with **Next.js App Router** + **Tailwind CSS** and powered by **SQLite**.  
+Print‑friendly, battle‑ready, and DM‑approved. 🎲🛡️
 
-First, run the development server:
+---
+
+## 🌟 What’s Inside
+
+### 🗡️ Combat Tracker
+- Initiative‑sorted combat table with editable cells ✍️
+- Death saves tracker for 4 heroes ☠️💀
+- Attack menu (auto turn order + rounds) 🔁
+- Combat log replay (step‑by‑step history) ⏮️⏭️
+- Dead combatants highlighted + removed from turn order 🪦
+
+### 🎒 Inventory & Notes
+- Track loot, origin, and estimated sell price 💰
+- Add/edit/remove items with clean inline editing 🧾
+- Stored in SQLite for persistent sessions 🧠
+
+---
+
+## 🧪 Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open the app at `http://localhost:3000` and choose:
+- **Open Combat Tracker**
+- **Open Inventory**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🗄️ Database
 
-## Learn More
+SQLite lives at:
 
-To learn more about Next.js, take a look at the following resources:
+```
+data/app.db
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Migrations auto‑run on startup (no extra command needed). 🛠️
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🖨️ Print‑Friendly
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The tracker is designed for **A4 landscape printing**, with clean borders and minimal UI clutter.  
+Perfect for physical tables and handwritten notes. 📝
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🧙‍♂️ Credits & Vibes
+
+Crafted for dungeon masters who want **speed**, **clarity**, and **epic encounters**.  
+Roll high. Fight smart. Track everything. 🧠🎲🔥
+
+---
+
+## 🚀 Future Ideas (Optional)
+- Party notes + session log 🗒️
+- Shared multiplayer combat view 🧙‍♀️🧙‍♂️
+- Export/print combat log 📤
+
+---
+
+Happy adventuring! ⚔️🐲✨
