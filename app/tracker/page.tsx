@@ -88,7 +88,7 @@ export default function CombatTrackerPage() {
   const [damage, setDamage] = useState("");
   const [attackerCondition, setAttackerCondition] = useState("");
   const [targetCondition, setTargetCondition] = useState("");
-  const [round, setRound] = useState(0);
+  const [round, setRound] = useState(1);
   const [isEditingName, setIsEditingName] = useState(false);
   const [draftName, setDraftName] = useState("");
   const [fightLog, setFightLog] = useState<FightLogEntry[]>([]);
@@ -144,7 +144,7 @@ export default function CombatTrackerPage() {
         setRows(fight.rows);
         setDeathSaves(fight.deathSaves);
         setAttackerIndex(fight.currentAttackerIndex ?? null);
-        setRound(fight.round ?? 0);
+        setRound(fight.round ?? 1);
         setTargetIndex(null);
         setDraftName(fight.name);
         setFightLog(fight.log ?? []);
@@ -215,7 +215,7 @@ export default function CombatTrackerPage() {
     setRows(created.rows);
     setDeathSaves(created.deathSaves);
     setAttackerIndex(created.currentAttackerIndex ?? null);
-    setRound(created.round ?? 0);
+    setRound(created.round ?? 1);
     setTargetIndex(null);
     setDraftName(created.name);
     setFightLog(created.log ?? []);
@@ -307,7 +307,7 @@ export default function CombatTrackerPage() {
       mockedRows,
       created.deathSaves,
       created.currentAttackerIndex ?? null,
-      0,
+      1,
       []
     );
   };
@@ -342,7 +342,7 @@ export default function CombatTrackerPage() {
           setRows(createEmptyRows(DEFAULT_ROWS));
           setDeathSaves(cloneDeathSaves());
           setAttackerIndex(null);
-          setRound(0);
+          setRound(1);
           setFightLog([]);
           setHistoryIndex(null);
         }
@@ -481,7 +481,7 @@ export default function CombatTrackerPage() {
 
   useEffect(() => {
     if (rows.length === 0) return;
-    if (round !== 0 || attackerIndex !== null) return;
+    if (round !== 1 || attackerIndex !== null) return;
     const nextTurnOrder = turnOrder.filter((index) =>
       isAlive(rows[index])
     );

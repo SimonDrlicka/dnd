@@ -141,7 +141,7 @@ export async function createFight(name?: string): Promise<FightState> {
         ${JSON.stringify(rows)},
         ${JSON.stringify(deathSaves)},
         ${null},
-        ${0},
+        ${1},
         ${JSON.stringify([])}
       )
       RETURNING id, name, created_at as "createdAt", updated_at as "updatedAt",
@@ -181,7 +181,7 @@ export async function createFight(name?: string): Promise<FightState> {
       JSON.stringify(rows),
       JSON.stringify(deathSaves),
       null,
-      0
+      1
     );
 
   const id = Number(result.lastInsertRowid);

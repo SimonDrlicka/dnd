@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS fights (
   rows_json TEXT NOT NULL,
   death_saves_json TEXT NOT NULL,
   current_attacker_index INTEGER,
-  round INTEGER NOT NULL DEFAULT 0,
+  round INTEGER NOT NULL DEFAULT 1,
   log_json TEXT NOT NULL DEFAULT '[]'
 );
 

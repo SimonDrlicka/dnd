@@ -61,10 +61,17 @@ async function ensurePostgresSchema() {
       rows_json TEXT NOT NULL,
       death_saves_json TEXT NOT NULL,
       current_attacker_index INTEGER,
-      round INTEGER NOT NULL DEFAULT 0,
+      round INTEGER NOT NULL DEFAULT 1,
       log_json TEXT NOT NULL DEFAULT '[]'
     );
   `;
+
+  await sql`
+    ALTER TABLE fights
+    ALTER COLUMN round SET DEFAULT 1;
+  `;
+
+  await sql`UPDATE fights SET round = 1 WHERE round = 0;`;
 
   await sql`
     CREATE TABLE IF NOT EXISTS inventory_items (
