@@ -1167,7 +1167,7 @@ function TrackerTable({
   disabled,
 }: TrackerTableProps) {
   const columns =
-    "grid grid-cols-[48px_minmax(0,1fr)_90px_140px_minmax(0,1fr)_110px]";
+    "grid grid-cols-[48px_minmax(240px,1.2fr)_80px_110px_minmax(220px,1fr)_110px]";
 
   const [editing, setEditing] = useState<{
     rowIndex: number;
@@ -1207,119 +1207,136 @@ function TrackerTable({
     });
 
   return (
-    <div className="flex h-full flex-col border border-zinc-300">
-        <div className={`${columns} border-b border-zinc-300 bg-zinc-50 text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-600`}>
-          <div className="border-r border-zinc-300 px-2 py-2 text-center">#</div>
-          <div className="border-r border-zinc-300 px-2 py-2">Combatant</div>
-          <div className="border-r border-zinc-300 px-2 py-2">Initiative</div>
-          <div className="border-r border-zinc-300 px-2 py-2">Hit Points</div>
-          <div className="border-r border-zinc-300 px-2 py-2">Conditions</div>
-          <div className="px-2 py-2 text-center">Actions</div>
-        </div>
-      {sortedRows.map(({ row, index }, displayIndex) => (
+    <div className="overflow-x-auto">
+      <div className="min-w-[900px] border border-zinc-300">
         <div
-          key={index}
-          className={`${columns} h-[36px] border-b border-zinc-300 text-sm text-zinc-800 ${
-            highlightIndex === index
-              ? "bg-blue-50"
-              : targetHighlightIndex === index
-              ? "bg-red-50"
-              : deadIndexSet?.has(index)
-              ? "bg-zinc-100 text-zinc-400"
-              : ""
-          }`}
+          className={`${columns} border-b border-zinc-300 bg-zinc-50 text-xs font-semibold uppercase tracking-[0.3em] text-zinc-600`}
         >
-          <div className="border-r border-zinc-300 px-2 py-1 text-center text-xs text-zinc-500">
-            {displayIndex + 1}
+          <div className="sticky left-0 z-10 border-r border-zinc-300 bg-zinc-50 px-2 py-2 text-center whitespace-nowrap">
+            #
           </div>
-          <Cell
-            value={
-              editing?.rowIndex === index && editing.key === "combatant"
-                ? editing.value
-                : row.combatant
-            }
-            isEditing={editing?.rowIndex === index && editing.key === "combatant"}
-            onDoubleClick={() =>
-              !disabled && setEditing({ rowIndex: index, key: "combatant", value: row.combatant })
-            }
-            onChange={(value) =>
-              setEditing({ rowIndex: index, key: "combatant", value })
-            }
-            onCommit={handleCommit}
-            onCancel={handleCancel}
-          />
-          <Cell
-            value={
-              editing?.rowIndex === index && editing.key === "initiative"
-                ? editing.value
-                : row.initiative
-            }
-            isEditing={editing?.rowIndex === index && editing.key === "initiative"}
-            onDoubleClick={() =>
-              !disabled && setEditing({ rowIndex: index, key: "initiative", value: row.initiative })
-            }
-            onChange={(value) =>
-              setEditing({ rowIndex: index, key: "initiative", value })
-            }
-            onCommit={handleCommit}
-            onCancel={handleCancel}
-          />
-          <Cell
-            value={
-              editing?.rowIndex === index && editing.key === "hp"
-                ? editing.value
-                : row.hp
-            }
-            isEditing={editing?.rowIndex === index && editing.key === "hp"}
-            onDoubleClick={() =>
-              !disabled && setEditing({ rowIndex: index, key: "hp", value: row.hp })
-            }
-            onChange={(value) =>
-              setEditing({ rowIndex: index, key: "hp", value })
-            }
-            onCommit={handleCommit}
-            onCancel={handleCancel}
-          />
-          <Cell
-            value={
-              editing?.rowIndex === index && editing.key === "conditions"
-                ? editing.value
-                : row.conditions
-            }
-            isEditing={editing?.rowIndex === index && editing.key === "conditions"}
-            onDoubleClick={() =>
-              !disabled && setEditing({ rowIndex: index, key: "conditions", value: row.conditions })
-            }
-            onChange={(value) =>
-              setEditing({ rowIndex: index, key: "conditions", value })
-            }
-            onCommit={handleCommit}
-            onCancel={handleCancel}
-          />
-          <div className="px-2 py-1 text-center">
-            {editing?.rowIndex === index ? (
-              <div className="flex items-center justify-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
-                <button
-                  type="button"
-                  onClick={handleCommit}
-                  className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300 text-xs text-zinc-600 transition hover:border-zinc-400"
-                  aria-label="Save"
-                >
-                  ✓
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCancel}
-                  className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300 text-xs text-zinc-600 transition hover:border-zinc-400"
-                  aria-label="Discard"
-                >
-                  ✕
-                </button>
-              </div>
-            ) : null}
+          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap">
+            Combatant
           </div>
+          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap">
+            Init
+          </div>
+          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap">
+            HP
+          </div>
+          <div className="border-r border-zinc-300 px-2 py-2 whitespace-nowrap">
+            Cond.
+          </div>
+          <div className="px-2 py-2 text-center whitespace-nowrap">Actions</div>
         </div>
-      ))}
+        {sortedRows.map(({ row, index }, displayIndex) => (
+          <div
+            key={index}
+            className={`${columns} h-[36px] border-b border-zinc-300 text-sm text-zinc-800 ${
+              highlightIndex === index
+                ? "bg-blue-50"
+                : targetHighlightIndex === index
+                ? "bg-red-50"
+                : deadIndexSet?.has(index)
+                ? "bg-zinc-100 text-zinc-400"
+                : ""
+            }`}
+          >
+            <div className="sticky left-0 z-10 border-r border-zinc-300 bg-white px-2 py-2 text-center text-xs text-zinc-500">
+              {displayIndex + 1}
+            </div>
+            <Cell
+              value={
+                editing?.rowIndex === index && editing.key === "combatant"
+                  ? editing.value
+                  : row.combatant
+              }
+              isEditing={editing?.rowIndex === index && editing.key === "combatant"}
+              onDoubleClick={() =>
+                !disabled &&
+                setEditing({ rowIndex: index, key: "combatant", value: row.combatant })
+              }
+              onChange={(value) =>
+                setEditing({ rowIndex: index, key: "combatant", value })
+              }
+              onCommit={handleCommit}
+              onCancel={handleCancel}
+            />
+            <Cell
+              value={
+                editing?.rowIndex === index && editing.key === "initiative"
+                  ? editing.value
+                  : row.initiative
+              }
+              isEditing={editing?.rowIndex === index && editing.key === "initiative"}
+              onDoubleClick={() =>
+                !disabled &&
+                setEditing({ rowIndex: index, key: "initiative", value: row.initiative })
+              }
+              onChange={(value) =>
+                setEditing({ rowIndex: index, key: "initiative", value })
+              }
+              onCommit={handleCommit}
+              onCancel={handleCancel}
+            />
+            <Cell
+              value={
+                editing?.rowIndex === index && editing.key === "hp"
+                  ? editing.value
+                  : row.hp
+              }
+              isEditing={editing?.rowIndex === index && editing.key === "hp"}
+              onDoubleClick={() =>
+                !disabled && setEditing({ rowIndex: index, key: "hp", value: row.hp })
+              }
+              onChange={(value) =>
+                setEditing({ rowIndex: index, key: "hp", value })
+              }
+              onCommit={handleCommit}
+              onCancel={handleCancel}
+            />
+            <Cell
+              value={
+                editing?.rowIndex === index && editing.key === "conditions"
+                  ? editing.value
+                  : row.conditions
+              }
+              isEditing={editing?.rowIndex === index && editing.key === "conditions"}
+              onDoubleClick={() =>
+                !disabled &&
+                setEditing({ rowIndex: index, key: "conditions", value: row.conditions })
+              }
+              onChange={(value) =>
+                setEditing({ rowIndex: index, key: "conditions", value })
+              }
+              onCommit={handleCommit}
+              onCancel={handleCancel}
+            />
+            <div className="px-2 py-2 text-center">
+              {editing?.rowIndex === index ? (
+                <div className="flex items-center justify-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">
+                  <button
+                    type="button"
+                    onClick={handleCommit}
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300 text-xs text-zinc-600 transition hover:border-zinc-400"
+                    aria-label="Save"
+                  >
+                    ✓
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCancel}
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300 text-xs text-zinc-600 transition hover:border-zinc-400"
+                    aria-label="Discard"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -1343,7 +1360,7 @@ function Cell({
 }: CellProps) {
   return (
     <div
-      className="border-r border-zinc-300 px-2 py-1"
+      className="border-r border-zinc-300 px-2 py-2"
       onDoubleClick={onDoubleClick}
     >
       {isEditing ? (
@@ -1400,11 +1417,11 @@ function DeathSavesPanel({
   };
 
   return (
-    <div className="grid grid-cols-4 gap-3 border border-zinc-200 bg-zinc-100 p-3">
+    <div className="grid grid-cols-1 gap-3 border border-zinc-200 bg-zinc-100 p-3 md:grid-cols-4">
       {CHARACTER_LABELS.map((character) => (
         <div
           key={character}
-          className="flex min-h-[110px] border border-zinc-300 bg-white"
+          className="flex w-full min-h-[120px] border border-zinc-300 bg-white"
         >
           <div className="flex items-center justify-center border-r border-zinc-300 bg-zinc-200 px-2 text-[10px] font-semibold uppercase tracking-[0.4em] text-zinc-600">
             <span
@@ -1422,19 +1439,20 @@ function DeathSavesPanel({
             </p>
             <div className="mt-2 grid gap-1 text-xs uppercase tracking-[0.3em] text-zinc-500">
               <span>Successes</span>
-              <div className="flex gap-2 text-lg text-zinc-600">
-                {deathSaves[character].successes.map((filled, index) => (
-                  <button
-                    key={`s-${index}`}
-                    type="button"
-                    disabled={disabled}
-                    onClick={() => toggleCircle(character, "successes", index)}
-                    className="h-6 w-6 leading-none disabled:cursor-not-allowed"
-                  >
-                    {filled ? "●" : "○"}
-                  </button>
-                ))}
-              </div>
+                <div className="flex gap-2 text-lg text-zinc-600">
+                  {deathSaves[character].successes.map((filled, index) => (
+                    <button
+                      key={`s-${index}`}
+                      type="button"
+                      disabled={disabled}
+                      onClick={() => toggleCircle(character, "successes", index)}
+                      className="h-9 w-9 leading-none disabled:cursor-not-allowed"
+                      aria-label={`${character} success ${index + 1}`}
+                    >
+                      {filled ? "●" : "○"}
+                    </button>
+                  ))}
+                </div>
               <span>Failures</span>
               <div className="flex gap-2 text-lg text-zinc-600">
                 {deathSaves[character].failures.map((filled, index) => (
@@ -1443,7 +1461,8 @@ function DeathSavesPanel({
                     type="button"
                     disabled={disabled}
                     onClick={() => toggleCircle(character, "failures", index)}
-                    className="h-6 w-6 leading-none disabled:cursor-not-allowed"
+                    className="h-9 w-9 leading-none disabled:cursor-not-allowed"
+                    aria-label={`${character} failure ${index + 1}`}
                   >
                     {filled ? "●" : "○"}
                   </button>
