@@ -46,6 +46,40 @@ Migrations auto‑run on startup (no extra command needed). 🛠️
 
 ---
 
+## 🐳 Docker (Dev)
+
+Spin it up with Docker Compose:
+
+```bash
+docker-compose up -d
+```
+
+Stop it:
+
+```bash
+docker-compose down
+```
+
+Volumes:
+- `./data` → SQLite DB 💾
+- `./build` → Next.js build cache ⚡
+
+---
+
+## ☁️ Vercel Deploy
+
+Deploying to Vercel? 🎯  
+The app auto‑detects **Postgres** when `POSTGRES_URL` or `DATABASE_URL` is set.
+
+Steps:
+1. Create a Postgres integration (Neon / Supabase) 🧠
+2. Vercel injects env vars 🧬
+3. Deploy 🚀
+
+Schema auto‑creates on first request. ✅
+
+---
+
 ## 🖨️ Print‑Friendly
 
 The tracker is designed for **A4 landscape printing**, with clean borders and minimal UI clutter.  
