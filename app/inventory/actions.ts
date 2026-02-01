@@ -1,6 +1,7 @@
 "use server";
 
-import { getDb, runMigrations } from "@/lib/db";
+import { ensureSchema, getDb, isPostgres } from "@/lib/db";
+import { sql } from "@vercel/postgres";
 
 export type InventoryItem = {
   id: number;
@@ -10,12 +11,21 @@ export type InventoryItem = {
   createdAt: string;
 };
 
-function ensureMigrations() {
-  runMigrations();
+async function ensureMigrations() {
+  await ensureSchema();
 }
 
 export async function listInventoryItems(): Promise<InventoryItem[]> {
-  ensureMigrations();
+  await ensureMigrations();
+  if (isPostgres()) {
+    const result = await sql`
+      SELECT id, name, origin, estimated_price as "estimatedPrice", created_at as "createdAt"
+      FROM inventory_items
+      ORDER BY id DESC
+    `;
+    return result.rows as InventoryItem[];
+  }
+
   const db = getDb();
   const rows = db
     .prepare(
@@ -32,7 +42,23 @@ export async function createInventoryItem(
   origin: string,
   estimatedPrice: string
 ): Promise<InventoryItem> {
-  ensureMigrations();
+  await ensureMigrations();
+  if (isPostgres()) {
+    const trimmedName = name.trim();
+    const trimmedOrigin = origin.trim();
+    const trimmedPrice = estimatedPrice.trim();
+    const result = await sql`
+      INSERT INTO inventory_items (name, origin, estimated_price)
+      VALUES (
+        ${trimmedName},
+        ${trimmedOrigin.length ? trimmedOrigin : null},
+        ${trimmedPrice.length ? trimmedPrice : null}
+      )
+      RETURNING id, name, origin, estimated_price as "estimatedPrice", created_at as "createdAt"
+    `;
+    return result.rows[0] as InventoryItem;
+  }
+
   const db = getDb();
   const trimmedName = name.trim();
   const trimmedOrigin = origin.trim();
@@ -62,7 +88,11 @@ export async function createInventoryItem(
 }
 
 export async function deleteInventoryItem(id: number): Promise<void> {
-  ensureMigrations();
+  await ensureMigrations();
+  if (isPostgres()) {
+    await sql`DELETE FROM inventory_items WHERE id = ${id}`;
+    return;
+  }
   const db = getDb();
   db.prepare("DELETE FROM inventory_items WHERE id = ?").run(id);
 }
@@ -73,7 +103,17 @@ export async function updateInventoryItem(
   origin: string,
   estimatedPrice: string
 ): Promise<void> {
-  ensureMigrations();
+  await ensureMigrations();
+  if (isPostgres()) {
+    await sql`
+      UPDATE inventory_items
+      SET name = ${name},
+          origin = ${origin || null},
+          estimated_price = ${estimatedPrice || null}
+      WHERE id = ${id}
+    `;
+    return;
+  }
   const db = getDb();
   db.prepare(
     `UPDATE inventory_items
